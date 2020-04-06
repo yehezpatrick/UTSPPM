@@ -1,0 +1,120 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>UTS PPM</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script>
+        function totalPengembalian(){
+			var jumlah= document.getElementById("pinjaman");
+			var lama= document.getElementById("lamaPinjaman");
+			jumlah=parseInt(jumlah.value);
+			lama=parseInt(lama.value);
+
+			if(lama>=1 && lama<=6){
+				var total=jumlah+(jumlah*0.02*lama)
+				var row = "<tr><td class='listPinjaman'>" +"Total Pengembalian: "+ jumlah+" + "+ "("+jumlah+" * 2% * " +lama+") = "+parseInt(total) + "</td></tr>";	
+				var bayar=parseInt(total)/lama
+				var pembayaran=	"<tr><td class='listPinjaman'>" +"Pembayaran setiap bulan: "+ bayar+"</td></tr>";
+				var tbody = $("tbody[id=totalpengembalian]");
+				tbody.html(tbody.html() + row);
+				var tablebody=$("tbody[id=cicilan]");
+				tablebody.html(tablebody.html()+row+pembayaran);
+				document.getElementById("pinjaman").value="";
+				document.getElementById("lamaPinjaman").value="";
+			}
+			else if (lama>=7 && lama<=12) {
+				var total = jumlah + (jumlah * 0.015 * lama)
+				var row = "<tr><td class='listPinjaman'>" +"Total Pengembalian: "+ jumlah+" + "+ "("+jumlah+" * 1,5% * " +lama+") = "+parseInt(total) + "</td></tr>";
+				var bayar=parseInt(total)/lama
+				var pembayaran=	"<tr><td class='listPinjaman'>" +"Pembayaran setiap bulan: "+ bayar+"</td></tr>";
+				var tbody = $("tbody[id=totalpengembalian]");
+				tbody.html(tbody.html() + row);
+				var tablebody=$("tbody[id=cicilan]");
+				tablebody.html(tablebody.html()+row+pembayaran);
+				document.getElementById("pinjaman").value="";
+				document.getElementById("lamaPinjaman").value="";
+			}
+			else if (lama>12) {
+				var total = jumlah + (jumlah * 0.01 * lama)
+				var row = "<tr><td class='listPinjaman'>" +"Total Pengembalian: "+ jumlah+" + "+ "("+jumlah+" * 1% * " +lama+") = "+parseInt(total) + "</td></tr>";	
+				var bayar=parseInt(total)/lama
+				var pembayaran=	"<tr><td class='listPinjaman'>" +"Pembayaran setiap bulan: "+ bayar+"</td></tr>";
+				var tbody = $("tbody[id=totalpengembalian]");
+				tbody.html(tbody.html() + row);
+				var tablebody=$("tbody[id=cicilan]");
+				tablebody.html(tablebody.html()+row+pembayaran);
+				document.getElementById("pinjaman").value="";
+				document.getElementById("lamaPinjaman").value="";
+
+			}
+
+
+		}
+		$(document).on("pagebeforecreate",function(event){
+	  		alert("Event Pertama: Selamat Datang di Webpage Koperasi");
+		});
+
+		$("h1").on("tap",function(){
+	  		$(this).hide();
+		});
+
+		$(document).on("scrollstop",function(){
+  			alert("Stopped scrolling!");
+		});
+	</script>
+</head>
+
+<body>
+    <div data-role="page" id="win1">
+		<div data-role="header"><h1>Halaman Pinjaman</h1></div>
+		<label for="text-basic">Input Jumlah Pinjaman:</label>
+		<input type="text" id="pinjaman" value="">
+		<label for="text-basic">Input Waktu Pinjam:</label>
+		<input type="text" id="lamaPinjaman" value="">
+		<button type="button" class="ui-btn ui-btn-inline" onclick="totalPengembalian()">HITUNG</button>
+		
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>	
+					<th>List Pinjaman dan Detail</th>
+				</tr>
+			</thead>
+			<tbody id="totalpengembalian">
+			</tbody>
+		</table>
+        <div data-role="footer">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="home" class="ui-btn-active">Pinjaman</a></li>
+                    <li><a href="#win2" data-icon="bullets"> Informasi Cicilan </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="win2">
+        <div data-role="header" data-add-back-btn="true"><h1>Informasi Cicilan</h1></div>
+        <div role="main" class="ui-content">
+            <table class="table table-hover mt-4">
+                <thead>
+                    <tr>	
+                        <th>Cicilan</th>
+                    </tr>
+                </thead>
+                <tbody id="cicilan">
+                </tbody>
+            </table>
+        </div>
+        <div data-role="footer">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#win1" data-icon="home" >Pinjaman</a></li>
+                    <li><a href="#" data-icon="bullets"class="ui-btn-active"> Informasi Cicilan </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
